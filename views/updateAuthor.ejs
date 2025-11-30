@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Author</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+    <%- include('partials/header') %>
+    
+        <div class="material">
+            <h1>Update New Author</h1>
+
+                <form action="/updateAuthor" method="POST">
+                    <input type="hidden" name="authorId" value="<%=authorInfo[0].authorId %>">
+                    First Name: <input type="text" name="fn" value="<%=authorInfo[0].firstName %>"> <br>
+                    Last Name: <input type="text" name="ln" value="<%=authorInfo[0].lastName %>"> <br>
+                    Date of Birth <input type="date" name="dob" value="<%=authorInfo[0].ISOdob %>"> <br>
+                    Sex:
+                    <label><input type="radio" name="sex" <% if (authorInfo[0].sex=="F" ) { %>
+                        checked
+                        <% } %>
+                            value="F"> Female
+                    </label>
+                    <label><input type="radio" name="sex" <%=(authorInfo[0].sex=='M' )?"checked":"" %>
+                        value="M"> Male</label>
+                    <br>
+
+                    Sex: <select>
+                        <option <%=(authorInfo[0].sex=='M' )?"selected":""%>
+                            value="M">Male</option>
+                        <option <%=(authorInfo[0].sex=='F' )?"selected":""%>
+                            value="F">Female</option>
+                    </select>
+
+                    Country: <input type="text" value="<%=authorInfo[0].country %>">
+                    Biography: <textarea rows="5" cols="20" name="bio"><%=authorInfo[0].biography%></textarea> <br>
+                    <button> Update Author </button>
+                </form>
+        </div>
+</body>
+
+</html>

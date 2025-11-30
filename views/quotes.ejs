@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+     <script src="/js/quotes.js" defer></script>
+
+    <style>
+        .quoteContainer {
+            width: 1000px;
+            box-sizing: border-box;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            margin-bottom: 25px;
+            padding: 20px;
+        }
+
+        .containerQuotes {
+            border:solid;
+            margin: 5px;
+            width: 100%;
+            max-height: 100%;
+            overflow-y: scroll;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #buttons {
+            display: flex;
+            flex-direction: row;
+            column-gap: 20px;
+            align-items: center;
+            padding-left: 25px;
+        }
+
+        #name {
+            font-size: 25px;
+            padding-right: 25px;
+        }
+        
+        #confirm, #cancel {
+            width: 100px;
+        }
+
+        #quote {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('partials/header') %>
+
+        <div class="material">
+            <h1>Update/Delete Quotes</h1>
+
+
+            <div class="containerQuotes">
+            <% for (let row of quotes) {%>
+                <div class="quoteContainer">
+
+                    <div id="buttons">
+                        <a href="/quote?id=<%=row.quoteId%>" id="update">Update</a>
+                        <a class="delete" href="#" data-quote-id="<%=row.quoteId%>" id="delete">Delete</a>
+                    </div>
+
+                    <div id="quote">
+                        <p><%= row.quote%> - </p>
+                        <%= row.name%> <br>
+                    </div>
+
+                </div>
+                <%}%>
+            </div>
+
+                    <dialog id="deleteModal">
+                        <form action="/deleteQuote" method="POST">
+                            <p>Are you sure you want to delete this quote?</p>
+                            <input type="hidden" name="quoteId" id="quoteId">
+                            <div id="modalBtns">
+                                <button type="submit" id="confirm">Confirm</button>
+                                <button id="cancel">Cancel</button>
+                            </div>
+                        </form>
+                    </dialog>
+        </div>
+</body>
+
+</html>

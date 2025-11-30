@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Quote</title>
+    <script src="/js/addQuotes.js" defer></script>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+    </style>
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="container">
+    <h1>Add Quote</h1>
+
+    <form action="/addQuote" id="addQuoteForm" method="POST">
+        Quote: <textarea name="quote" rows="5" cols="50"></textarea>
+        <p id="errorMessage" style="display: none;">Quote MUST be more than 5 characters.</p>
+
+        <select name="category">
+            <option disabled selected>Choose Category</option>
+            <% for (let row of categoryRows) { %>
+                <option value="<%= row.category %>"> <%= row.category %></option>
+            <% } %>
+        </select>
+
+        <select name="author">
+            <option disabled selected>Choose Author</option>
+        <% for (let row of authorsRows) { %>
+            <option value="<%= row.authorId %>"> <%= row.fullName %></option>
+      <% } %>
+
+        </select>
+
+        <button>Add Quote</button>
+    </form>
+    </div>
+</body>
+</html>
