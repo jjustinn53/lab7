@@ -1,15 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .login {
+            border: solid;
+            width: 40%;
+            min-height: 200px;
+            padding: 10px;
+            overflow: auto;
+            align-items: center;
+        }
+
+        #loginBtn {
+            align-self: center;
+            width: 50px;
+        }
+    </style>
 </head>
+
 <body>
     <%- include('partials/header') %>
-    
-    <h1>Famous Quotes - Admin Section</h1>
-    
+
+        <div class="material">
+            <h1>Famous Quotes - Admin Section</h1>
+
+                <form class="login" action="/login" method="POST">
+                    Username: <input type="text" name="username"> <br>
+
+                    Password: <input type="password" name="password"> <br>
+
+                    <button id="loginBtn">Login</button>
+
+                    <p><%= message %></p>
+                </form>
+        </div>
+
+
 </body>
+
 </html>

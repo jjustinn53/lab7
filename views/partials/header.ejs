@@ -14,6 +14,12 @@
     <form action="/quotes">
         <button class="navButton">Quotes</button>
     </form>
+
+    <% if (authenticated) { %>
+        <form action="/logout">
+        <button class="navButton">Logout</button>
+    </form>
+    <% } %>
 </nav>
 
 <div class="info"></div>
