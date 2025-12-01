@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Quote</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <%- include('partials/header') %>
+    
+        <div class="material">
+            <h1>Update Quote</h1>
+
+                <form action="/updateQuote" method="POST">
+                    <input type="hidden" name="quoteId" value="<%=quoteInfo[0].quoteId %>">
+                    Quote: <textarea rows="5" cols="50" name="quote"><%=quoteInfo[0].quote%></textarea> <br>
+                    <button>Update Quote</button>
+                </form>
+        </div>
+</body>
+
+</html>

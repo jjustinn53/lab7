@@ -196,6 +196,39 @@ app.post("/addQuote", isAuthenticated, async (req, res) => {
   res.render("addQuotes.ejs", { authorsRows, categoryRows });
 });
 
+app.get("/updateQuote", isAuthenticated, async (req, res) => {
+  try {
+    const quoteId = req.query.id;
+    const sql = `SELECT quoteId, quote FROM quotes WHERE quoteId = ?`;
+    const [quoteInfo] = await pool.query(sql, [quoteId]);
+
+    if (quoteInfo.length === 0) {
+      console.log("Quote not found");
+    }
+
+    res.render("updateQuote.ejs", { quoteInfo });
+  } catch (error) {
+    console.error("Error fetching quote:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.post("/updateQuote", isAuthenticated, async (req, res) => {
+  try {
+    const quoteId = req.body.id;
+    const quote = req.body.quote;
+
+    const sql = `UPDATE quotes SET quote = ? WHERE quoteId = ?`;
+    const sqlParams = [quote, quoteId];
+
+    await pool.query(sql, sqlParams);
+
+    res.redirect("/quotes");
+  } catch (error) {
+    console.error("Error updating quote:", error);
+  }
+});
+
 app.get("/dbTest", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT CURDATE()");
@@ -214,9 +247,9 @@ app.listen(3000, () => {
 function isAuthenticated(req, res, next) {
   if (!req.session.authenticated) {
     if (req.url !== "/login") {
-      res.render("login", { message: "Please login to continue." });
+      res.render("home.ejs", { message: "Please login to continue." });
     } else {
-      res.render("login", { message: "" });
+      res.render("home.ejs", { message: "" });
     }
   } else {
     next();
